@@ -2,9 +2,15 @@ from rest_framework import serializers
 
 from .models import Advertisement
 from location.serializers import LocationSerializer
+from location.models import Location
 
 
 class AdvertisementSerializer(serializers.ModelSerializer):
+	location = serializers.PrimaryKeyRelatedField(
+		queryset = Location.objects.all(),
+		required = False,
+		allow_null = True
+		)
 
 	class Meta:
 		model = Advertisement

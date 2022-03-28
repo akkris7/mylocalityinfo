@@ -24,7 +24,6 @@ media
 *.so
 
 # Distribution / packaging
-.env
 .vscode/
 .Python
 build/

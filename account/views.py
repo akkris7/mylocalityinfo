@@ -81,7 +81,7 @@ class ProfileViewSet(viewsets.ViewSet):
         return Response(serializer.data, status = status.HTTP_200_OK)
 
     def partial_update(self, request, pk = None):
-        serializer = UserSerializer(request.user, data = request.data, partial = True)
+        serializer = UserSerializer(request.user, data = request.data, partial = True, context={"request": request})
         serializer.is_valid(raise_exception = True)
         serializer.save()
         return Response(serializer.data)

@@ -9,11 +9,12 @@ from .models import *
 from .serializers import *
 from payankor_api.pagination import CustomPagination
 
+
 class AdvertisementViewSet(viewsets.ModelViewSet):
     queryset = Advertisement.objects.all().order_by('id')
     serializer_class = AdvertisementSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    search_fields = ('location__name',)
+    search_fields = ('location__name', 'ad_type')
     permission_classes = (permissions.IsAuthenticated,)
     pagination_class = CustomPagination
 
@@ -27,6 +28,6 @@ class AdvertisementViewSet(viewsets.ModelViewSet):
     def local_ads(self, request):
         today = date.today()
         location_id = self.request.GET.get('location_id', None)
-        queryset = self.queryset.filter(location = location_id, expiry__gte = today)
+        queryset = self.queryset.filter(location = location_id, expiry__gte = today, ad_type = 'small')
         serializer = AdvertisementMiniSerializer(queryset, context={"request": request}, many = True)
         return Response(serializer.data)

@@ -6,9 +6,10 @@ from advertisement.serializers import AdvertisementSerializer
 
 
 class HomeSerializer(serializers.Serializer):
-	recent_services = ServiceListSerializer(many = True)
+	#recent_services = ServiceListSerializer(many = True)
 	recent_locations = LocationSerializer(many = True)
 	ads = AdvertisementSerializer(many = True)
+	large_ads = AdvertisementSerializer(many = True)
 
 
 class ServiceFilterSerializer(serializers.Serializer):

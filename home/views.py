@@ -21,15 +21,16 @@ class HomeView(viewsets.ViewSet):
 
 	def get_objects(self):
 		recent_locations = Location.objects.all().order_by('-id')[:10]
-		recent_services = Service.objects.all().order_by('-id')[:8]
+		#recent_services = Service.objects.all().order_by('-id')[:8]
 
 		today = date.today()
-		ads = Advertisement.objects.filter(location = None, expiry__gte = today)
+		ads = Advertisement.objects.filter(location = None, expiry__gte = today, ad_type = 'small')
+		large_ads = Advertisement.objects.filter(expiry__gte = today, ad_type = 'large')
 
 		return {
-			'recent_services': recent_services,
 			'recent_locations': recent_locations,
-			'ads': ads
+			'ads': ads,
+			'large_ads': large_ads
 		}
 
 
